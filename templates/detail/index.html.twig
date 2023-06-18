@@ -1,0 +1,53 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    {{ i.name }}
+{% endblock title %}
+{% block body %}
+    {{ include('components/header.html.twig') }}
+
+    <section class="container main-container newsItem px-lg-4">
+        <div class="detail-page-section">
+            <div class="newsItem__info">
+                <div class="newsItem__credits">
+                    <div class="author">{{ i.user.login }}</div>
+                    <div class="newsItem__date newsItem__info-item"><img src="{{ asset('img/svg/clock.svg') }}"
+                                                                         alt="">{{ i.date|date }}</div>
+                </div>
+
+                <div class="newsItem__credits">
+                    <div class="newsItem__views newsItem__info-item">{{ i.views }}<img
+                                src="{{ asset('img/svg/view.svg') }}" alt=""></div>
+                    <div class="newsItem__comments newsItem__info-item">{{ i.comments|length }}<img
+                                src="{{ asset('img/svg/comments.svg') }}" alt=""></div>
+                </div>
+            </div>
+            <div class="newsItem__content">
+                <h1 class="newsItem__title">{{ i.name }}</h1>
+                <div class="newsItem__photo"><img src="{{ asset('fotosNews/') }}{{ i.fotopath }}" alt=""></div>
+                <div class="newsItem__text">
+                    {{ i.content|nl2br }}
+                </div>
+            </div>
+        </div>
+
+        <div class="section-comments">
+            {% if comments|length > 0 %}
+                <h1 class="comments__title">Комментарии</h1>
+                {% for i in comments %}
+                    <div class="comment__item">
+                        <div class="comment__info">
+                            <div class="comment__author">{{ i.user.login }}</div>{{ i.dateLoad|date }}</div>
+                        <div class="comment__text">{{ i.content }}</div>
+                    </div>
+                {% endfor %}
+            {% endif %}
+            {% if app.user %}
+                {{ include('Forms/Comments-form/index.html.twig') }}
+            {% endif %}
+        </div>
+    </section>
+
+
+{% endblock %}
+

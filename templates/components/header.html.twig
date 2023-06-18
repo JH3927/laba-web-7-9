@@ -1,0 +1,21 @@
+<header class="navbar">
+    <div class="container-lg p-0">
+        <a href="/" class="navbar-brand"><img src="{{ asset('img/logo.png') }}" alt=""></a>
+
+        {% if app.user %}
+            <div class="user-login text-white">Здравствуй, {{ app.user.login }}</div>
+            <div class="buttons">
+                {% if is_granted('ROLE_ADMIN') %}
+                    <a href="/admin" target="_blank" class="btn btn-info">Админ панель</a>
+                {% endif %}
+                <a href="/createNews" id="btn-public"><input type="button" class="btn btn-s" value="Добавить новость"></a>
+                <a href="/logout"><input type="button" class="btn btn-danger" value="Выход"></a>
+            </div>
+        {% else %}
+            <div class="buttons">
+                <a href="/registration"><input type="button" class="btn btn-s btn-reg" value="Регистрация"></a>
+                <a href="/auth" id="btn-login"><input type="button" class="btn btn-s btn-auth" value="Вход"></a>
+            </div>
+        {% endif %}
+    </div>
+</header>

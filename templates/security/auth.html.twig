@@ -1,0 +1,33 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Вход{% endblock %}
+
+{% block body %}
+    {{ include('components/header2.html.twig') }}
+    <section class="registration-f" id="auth">
+        <form method="post" class="LoginForm--content">
+
+            {% if app.user %}
+                <div class="mb-3">
+                    You are logged in as {{ app.user.username }}, <a href="{{ path('app_logout') }}">Logout</a>
+                </div>
+            {% endif %}
+{#            <a href="/"><div class="close--LoginForm">{% include 'svg/arrow.svg' %}</div></a>#}
+            <h1 class="h1-registration">Вход</h1>
+
+            <div class="form form-auth">
+
+                <input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="" autocomplete="email" required autofocus placeholder="email">
+                <input type="password" name="password" id="inputPassword" class="" autocomplete="current-password" required placeholder="Пароль">
+
+                <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+                {% if error %}
+                    <div class="error">Неверно введены данные</div>
+                {% endif %}
+                <button class="btn btn-primary" type="submit">
+                    Войти
+                </button>
+            </div>
+        </form>
+    </section>
+{% endblock %}

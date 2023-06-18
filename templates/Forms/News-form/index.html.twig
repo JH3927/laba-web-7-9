@@ -1,0 +1,29 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Добавление новости{% endblock %}
+
+{% block body %}
+    {{ include('components/header.html.twig') }}
+    <section class="container form-createNews-section">
+        {{ form_start(createNewsForm, { 'attr': {'class': 'form-createNews'} }) }}
+        <div class="form-createNews__firstRow">
+            {{ form_row(createNewsForm.fotopath, { 'attr': {'placeholder': 'Фото новости', 'class': 'inputFile', 'name': 'fotopath'}, 'label': 'Фото новости' }) }}
+            {{ form_widget(createNewsForm.name, { 'attr': {'placeholder': 'Название новости', 'class': 'newsName'}, 'label': ' ' }) }}
+        </div>
+        <div class="form-createNews__secondRow">
+            {{ form_widget(createNewsForm.description, { 'attr': {'placeholder': 'Краткое описание', 'class': 'textarea-shorthand'}, 'label': ' ' }) }}
+            {{ form_widget(createNewsForm.content, { 'attr': {'placeholder': 'Текст новости', 'class': 'textarea-content'}, 'label': ' ' }) }}
+        </div>
+        {% if not createNewsForm.vars.valid %}
+            <ul>
+                {% for error in createNewsForm.vars.errors.form.getErrors(true) %}
+                    <div class="error">{{ error.message }}</div>
+                {% endfor %}
+            </ul>
+        {% endif %}
+        <button type="submit" class="btn btn-lg btn-primary btn-loadNews">Загрузить</button>
+        {{ form_rest(createNewsForm) }}
+        {{ form_end(createNewsForm) }}
+    </section>
+
+{% endblock %}

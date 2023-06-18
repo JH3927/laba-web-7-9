@@ -1,0 +1,12 @@
+{{ form_start(commentsForm, { 'attr': {'class': 'form-comments'} }) }}
+    {{ form_widget(commentsForm.content, { 'attr': {'placeholder': 'Оставьте свой комментарий', 'class': 'form-comments__textarea'}, 'label': ' ' }) }}
+    {% if not commentsForm.vars.valid %}
+        <ul>
+            {% for error in commentsForm.vars.errors.form.getErrors(true) %}
+                <div class="error">{{ error.message }}</div>
+            {% endfor %}
+        </ul>
+    {% endif %}
+    <button type="submit" class="btn btn-primary">Отправить</button>
+{{ form_end(commentsForm) }}
+

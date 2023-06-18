@@ -1,0 +1,31 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+        {{ include('components/header.html.twig') }}
+
+        <section class="news main-container container-lg px-lg-4">
+            {% for i in news | reverse %}
+                    {% if not loop.index % 2 %}
+                        <a href="/news/{{i.id}}" class="news__link" data-aos="fade-left" data-aos-once="true">
+                    {%else%}
+                         <a href="/news/{{i.id}}" class="news__link" data-aos="fade-right" data-aos-once="true">
+                    {%endif%}
+                        <div class="news__item">
+                            <div class="news__foto"><img src="../fotosNews/{{i.fotopath}}" alt=""> </div>
+                            <div class="news__content">
+                                <h2 class="name">{{i.name}}</h2>
+                                <div class="annotation">{{i.description}}</div>
+                                <div class="news__info">
+                                    <div class="date info-item"><img src="{{asset('img/svg/clock.svg')}}" alt=""> {{i.date|date("d.m.Y")}}</div>
+                                    <div class="news__info-right">
+                                        <div class="views info-item">{{i.views}}<img src="{{asset('img/svg/view.svg')}}" alt=""></div>
+                                        <div class="comments info-item">{{i.comments|length}}<img src="{{asset('img/svg/comments.svg')}}" alt=""></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+            {% endfor %}
+            <div class="element"></div>
+        </section>
+{% endblock %}
